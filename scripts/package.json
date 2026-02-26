@@ -1,0 +1,8 @@
+{
+  "name": "unpdf-extract",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "unpdf": "^1.4.0"
+  }
+}
