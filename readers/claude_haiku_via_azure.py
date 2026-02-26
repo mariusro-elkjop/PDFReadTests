@@ -1,6 +1,6 @@
 """
-Claude Sonnet (via Azure AI Foundry) PDF reader.
-Sends PDF as a document to Claude for text extraction.
+Claude Haiku (via Azure AI Foundry) PDF reader.
+Sends PDF as a document to Claude Haiku for text extraction.
 """
 import os
 import base64
@@ -11,7 +11,7 @@ load_dotenv()
 
 RESOURCE = os.getenv("AZURE_AI_FOUNDRY_RESOURCE")
 KEY = os.getenv("AZURE_AI_FOUNDRY_KEY")
-MODEL = os.getenv("AZURE_CLAUDE_SONNET_MODEL", "claude-sonnet-4-5")
+MODEL = os.getenv("AZURE_CLAUDE_HAIKU_MODEL", "claude-haiku-4-5")
 
 SYSTEM_PROMPT = (
     "You are a precise document transcription assistant. "

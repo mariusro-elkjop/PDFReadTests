@@ -13,7 +13,7 @@ ENDPOINT = os.getenv("AZURE_DOC_INTELLIGENCE_ENDPOINT")
 KEY = os.getenv("AZURE_DOC_INTELLIGENCE_KEY")
 
 
-def read_pdf(pdf_path: str) -> str:
+def read_pdf(pdf_path: str) -> tuple[str, dict]:
     client = DocumentIntelligenceClient(
         endpoint=ENDPOINT,
         credential=AzureKeyCredential(KEY),
@@ -27,4 +27,6 @@ def read_pdf(pdf_path: str) -> str:
         )
 
     result = poller.result()
-    return result.content
+    pages = len(result.pages) if result.pages else 0
+
+    return result.content, {"pages": pages}

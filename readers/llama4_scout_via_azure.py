@@ -1,6 +1,6 @@
 """
-Phi-4-multimodal (via Azure AI Foundry) PDF reader.
-Converts PDF pages to images and sends to Phi-4 for extraction.
+Llama 4 Scout (via Azure AI Foundry) PDF reader.
+Converts PDF pages to images and sends to Llama 4 Scout for extraction.
 """
 import os
 import base64
@@ -12,7 +12,7 @@ load_dotenv()
 
 ENDPOINT = os.getenv("AZURE_AI_FOUNDRY_ENDPOINT")
 KEY = os.getenv("AZURE_AI_FOUNDRY_KEY")
-DEPLOYMENT = os.getenv("AZURE_PHI4_DEPLOYMENT", "Phi-4-multimodal-instruct")
+DEPLOYMENT = os.getenv("AZURE_LLAMA4_SCOUT_DEPLOYMENT", "Llama-4-Scout-17B-16E-Instruct")
 
 SYSTEM_PROMPT = (
     "You are a precise document transcription assistant. "
@@ -34,7 +34,7 @@ def _pdf_pages_to_base64_images(pdf_path: str) -> list[str]:
     return images
 
 
-def read_pdf(pdf_path: str) -> str:
+def read_pdf(pdf_path: str) -> tuple[str, dict]:
     client = AzureOpenAI(
         azure_endpoint=ENDPOINT,
         api_key=KEY,
@@ -66,4 +66,8 @@ def read_pdf(pdf_path: str) -> str:
         max_tokens=16384,
     )
 
-    return response.choices[0].message.content
+    usage = {
+        "input_tokens": response.usage.prompt_tokens,
+        "output_tokens": response.usage.completion_tokens,
+    }
+    return response.choices[0].message.content, usage

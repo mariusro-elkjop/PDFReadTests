@@ -1,6 +1,6 @@
 """
-GPT-4o-mini (via Azure OpenAI) PDF reader.
-Converts PDF pages to images and sends to GPT-4o-mini for extraction.
+GPT-4o (via Azure OpenAI) PDF reader.
+Converts PDF pages to images and sends to GPT-4o for extraction.
 """
 import os
 import base64
@@ -12,7 +12,7 @@ load_dotenv()
 
 ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 KEY = os.getenv("AZURE_OPENAI_KEY")
-DEPLOYMENT = os.getenv("AZURE_GPT4O_MINI_DEPLOYMENT", "gpt-4o-mini")
+DEPLOYMENT = os.getenv("AZURE_GPT4O_DEPLOYMENT", "gpt-4o")
 
 SYSTEM_PROMPT = (
     "You are a precise document transcription assistant. "
